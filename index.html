@@ -3,352 +3,77 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-   
-    <!-- SEO de base -->
+    
     <title>Mr. Scenart | Plateforme Collaborative pour le Cinéma</title>
     <meta name="description" content="Rejoignez la liste d'attente de Mr. Scenart. La plateforme qui connecte scénaristes, réalisateurs et acteurs pour réinventer la création filmique de A à Z.">
-    <meta name="keywords" content="cinéma, scénariste, réalisateur, acteur, production audiovisuelle, casting, collaboration film">
 
-    <!-- Open Graph (Pour les partages LinkedIn, Instagram, etc.) -->
     <meta property="og:title" content="Mr. Scenart — La création filmique réinventée">
     <meta property="og:description" content="Accompagnement, partenariat et gestion de projets pour les professionnels du cinéma. Inscrivez-vous à la liste d'attente.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.mrscenart.com">
-    <meta property="og:image" content="https://www.mrscenart.com/favicon.png">
+    <meta property="og:url" content="https://mrscenart-dev.github.io/mr-scenar/">
+    <meta property="og:image" content="https://mrscenart-dev.github.io/mr-scenar/favicon.png">
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         /* Styles Généraux */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
-            --noir: #08090f;
-            --bleu: #1a4fd6;
-            --bleu-clair: #4d7fff;
-            --bleu-nuit: #0d1a3a;
-            --creme: #e8edf8;
-            --gris: #7a8aaa;
-            --blanc: #ffffff;
+            --noir: #08090f; --bleu: #1a4fd6; --bleu-clair: #4d7fff;
+            --creme: #e8edf8; --gris: #7a8aaa; --blanc: #ffffff;
         }
+        body { background-color: var(--noir); color: var(--creme); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.5; }
 
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--noir);
-            color: var(--creme);
-            font-family: 'DM Sans', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0.5;
-        }
-
-        /* Bannière Cookie */
-        #cookie-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 5%;
-            width: 90%;
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 9999;
-            text-align: center;
-        }
-        .btn-cookie {
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        /* Banner Cookie */
+        #cookie-banner { position: fixed; bottom: 20px; left: 5%; width: 90%; background: #2c3e50; color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; z-index: 9999; text-align: center; }
+        .btn-cookie { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .btn-accept { background: #038fde; color: white; }
-        .btn-refuse { background: #910000; color: white; }
 
-        /* Design Landing */
-        .ambient {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(26,79,214,0.18) 0%, transparent 70%);
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            pointer-events: none;
-            animation: pulse 6s ease-in-out infinite;
-        }
+        .ambient { position: fixed; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,214,0.18) 0%, transparent 70%); top: -200px; left: 50%; transform: translateX(-50%); pointer-events: none; }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-            50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 4rem;
-            position: relative;
-            z-index: 10;
-            animation: fadeDown 0.8s ease both;
-        }
-
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            color: var(--blanc);
-            text-decoration: none;
-        }
-
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; position: relative; z-index: 10; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--blanc); text-decoration: none; }
         .logo span { color: var(--bleu-clair); }
-
         .nav-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-link { color: var(--gris); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; }
+        .badge { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bleu-clair); border: 1px solid rgba(77,127,255,0.3); padding: 0.4rem 1rem; border-radius: 2rem; }
 
-        .nav-link {
-            color: var(--gris);
-            text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            transition: color 0.3s ease;
-        }
-
-        .badge {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--bleu-clair);
-            border: 1px solid rgba(77,127,255,0.3);
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-        }
-
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 5rem 2rem 4rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-eyebrow {
-            font-size: 0.72rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--bleu-clair);
-            margin-bottom: 1.8rem;
-            animation: fadeUp 0.8s 0.2s ease both;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 7vw, 6rem);
-            line-height: 1.08;
-            font-weight: 700;
-            max-width: 820px;
-            animation: fadeUp 0.8s 0.35s ease both;
-        }
-
+        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 5rem 2rem 4rem; z-index: 10; position: relative; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 6rem); line-height: 1.08; max-width: 820px; }
         h1 em { font-style: italic; color: var(--bleu-clair); }
+        .hero-sub { color: var(--gris); max-width: 540px; margin-top: 1.6rem; line-height: 1.75; }
 
-        .hero-sub {
-            font-size: 1.05rem;
-            font-weight: 300;
-            color: var(--gris);
-            max-width: 540px;
-            line-height: 1.75;
-            margin-top: 1.6rem;
-            animation: fadeUp 0.8s 0.5s ease both;
-        }
+        .pillars { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 4rem; z-index: 10; position: relative; }
+        .pillar { font-size: 0.82rem; text-transform: uppercase; color: var(--gris); display: flex; align-items: center; gap: 0.5rem; }
+        .pillar::before { content: ''; width: 5px; height: 5px; background: var(--bleu-clair); border-radius: 50%; }
 
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(77,127,255,0.5), transparent);
-            margin: 2.5rem auto;
-            animation: fadeUp 0.8s 0.6s ease both;
-        }
-
-        .pillars {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            padding: 0 2rem;
-            margin-bottom: 4rem;
-            animation: fadeUp 0.8s 0.65s ease both;
-            position: relative;
-            z-index: 10;
-        }
-
-        .pillar {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.82rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--gris);
-        }
-
-        .pillar::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: var(--bleu-clair);
-            flex-shrink: 0;
-        }
-
-        /* Formulaire */
-        .form-section {
-            display: flex;
-            justify-content: center;
-            padding: 0 2rem 6rem;
-            position: relative;
-            z-index: 10;
-            animation: fadeUp 0.8s 0.8s ease both;
-        }
-
-        .card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(77,127,255,0.25);
-            border-radius: 16px;
-            padding: 3rem 3.5rem;
-            max-width: 480px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-        }
-
-        .card-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.4rem; }
-        .card-desc { font-size: 0.85rem; color: var(--gris); margin-bottom: 2rem; line-height: 1.6; }
+        .form-section { display: flex; justify-content: center; padding: 0 2rem 6rem; z-index: 10; position: relative; }
+        .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(77,127,255,0.25); border-radius: 16px; padding: 3rem 3.5rem; max-width: 480px; width: 100%; backdrop-filter: blur(10px); }
+        .card-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .card-desc { font-size: 0.85rem; color: var(--gris); margin-bottom: 2rem; }
 
         .form-group { margin-bottom: 1.2rem; }
-        label { display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem; }
+        label { display: block; font-size: 0.72rem; text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem; }
+        input, select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.85rem 1rem; color: var(--creme); outline: none; }
+        .btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--bleu), var(--bleu-clair)); border: none; border-radius: 8px; color: var(--blanc); font-weight: 500; text-transform: uppercase; cursor: pointer; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        input, select {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 0.85rem 1rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.95rem;
-            color: var(--creme);
-            outline: none;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--bleu), var(--bleu-clair));
-            border: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            color: var(--blanc);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .btn:hover { transform: translateY(-1px); }
-
-        .counter-wrap {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 1rem 0 3.5rem;
-            animation: fadeUp 0.8s 0.72s ease both;
-            position: relative;
-            z-index: 10;
-        }
-
-        .counter-item { text-align: center; }
+        .counter-wrap { display: flex; justify-content: center; gap: 3rem; margin-bottom: 3.5rem; z-index: 10; position: relative; }
         .counter-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--bleu-clair); display: block; }
-        .counter-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gris); }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .counter-label { font-size: 0.7rem; text-transform: uppercase; color: var(--gris); }
 
         footer { text-align: center; padding: 2rem; font-size: 0.75rem; color: rgba(138,138,138,0.4); }
-
-        @media (max-width: 600px) {
-            nav { padding: 1.5rem 1.5rem; }
-            .card { padding: 2rem 1.5rem; }
-        }
     </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("waitlist-form");
-    const btn = form.querySelector("button");
-
-    // TÂCHE 1 : Bloquer si déjà inscrit
-    if (localStorage.getItem("inscrit_mr_scenar") === "true") {
-        btn.disabled = true;
-        btn.innerText = "Déjà inscrit !";
-        btn.style.opacity = "0.5";
-        btn.style.cursor = "not-allowed";
-    }
-
-    // TÂCHE 2 : Action lors de l'envoi
-    form.addEventListener("submit", function() {
-        // On enregistre dans le navigateur juste avant que Formspree prenne le relais
-        localStorage.setItem("inscrit_mr_scenar", "true");
-    });
-
-    // Chargement de Google Analytics (on le garde tel quel)
-    loadGoogleAnalytics();
-});
-
-function loadGoogleAnalytics() {
-    var script = document.createElement('script');
-    script.async = true;
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-BP0D9SF51N";
-    document.head.appendChild(script);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BP0D9SF51N');
-}
-</script>
 </head>
 
 <body>
-
     <div class="ambient"></div>
 
     <div id="cookie-banner">
-        <span>🍪 Ce site utilise des cookies pour analyser le trafic et améliorer votre expérience.</span>
+        <span>🍪 Ce site utilise des cookies.</span>
         <button class="btn-cookie btn-accept" onclick="acceptCookies()">Accepter</button>
-        <button class="btn-cookie btn-refuse" onclick="refuseCookies()">Refuser</button>
     </div>
 
     <nav>
@@ -360,79 +85,59 @@ function loadGoogleAnalytics() {
     </nav>
 
     <section class="hero">
-        <h2 class="hero-eyebrow">La plateforme de production cinématographique</h2>
-        <h1>La création filmique,<br/><em>réinventée</em> de A à Z.</h1>
-        <p class="hero-sub">
-            Mr. Scenart accompagne et forme scénaristes, réalisateurs et acteurs tout au long de leur projet : accompagnement pro, partenariat et gestion des contrats en un seul endroit.
-        </p>
-        <div class="divider"></div>
+        <h1>La création filmique,<br/><em>réinventée</em>.</h1>
+        <p class="hero-sub">Plateforme collaborative pour scénaristes, réalisateurs et acteurs.</p>
     </section>
-
-    <div class="pillars">
-        <div class="pillar">Mise en avant</div>
-        <div class="pillar">Accompagnement personnalisé</div>
-        <div class="pillar">Matchmaking caractérisé</div>
-        <div class="pillar">Partenariats de confiance</div>
-    </div>
 
     <div class="counter-wrap">
         <div class="counter-item">
             <span class="counter-num" id="cnt-inscrits">—</span>
             <span class="counter-label">Inscrits</span>
         </div>
-        <div class="counter-item">
-            <span class="counter-num">3</span>
-            <span class="counter-label">Métiers</span>
-        </div>
-        <div class="counter-item">
-            <span class="counter-num">2026</span>
-            <span class="counter-label">Lancement</span>
-        </div>
+        <div class="counter-item"><span class="counter-num">3</span><span class="counter-label">Métiers</span></div>
+        <div class="counter-item"><span class="counter-num">2026</span><span class="counter-label">Lancement</span></div>
     </div>
 
     <section class="form-section">
         <div class="card">
             <div id="form-wrap">
                 <p class="card-title">Rejoindre la liste d'attente</p>
-                <p class="card-desc">Soyez parmi les premiers à accéder à Mr. Scenart dès l'ouverture.</p>
-              <form id="waitlist-form" action="https://formspree.io/f/xykodbkb" method="POST">
+                <p class="card-desc">Inscrivez-vous pour Gmail et Firebase simultanément.</p>
+                
+                <form id="waitlist-form" action="https://formspree.io/f/xykodbkb" method="POST">
                     <div class="form-group">
-                        <label for="prenom">Prénom</label>
-                        <input type="text" id="prenom" placeholder="Votre prénom" required />
+                        <label>Prénom</label>
+                        <input type="text" name="prenom" id="prenom" required />
                     </div>
                     <div class="form-group">
-                        <label for="nom">Nom</label>
-                        <input type="text" id="nom" placeholder="Votre nom" required />
+                        <label>Nom</label>
+                        <input type="text" name="nom" id="nom" required />
                     </div>
                     <div class="form-group">
-                        <label for="email">Adresse e-mail</label>
-                        <input type="email" id="email" placeholder="vous@exemple.com" required />
+                        <label>Adresse e-mail</label>
+                        <input type="email" name="email" id="email" required />
                     </div>
                     <div class="form-group">
-                        <label for="role">Votre rôle</label>
-                        <select id="role" required>
+                        <label>Votre rôle</label>
+                        <select name="role" id="role" required>
                             <option value="" disabled selected>Sélectionner</option>
                             <option value="scenariste">Scénariste</option>
-                            <option value="realisateur">Réalisateur / Réalisatrice</option>
-                            <option value="acteur">Acteur / Actrice</option>
+                            <option value="realisateur">Réalisateur</option>
+                            <option value="acteur">Acteur</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn">Je me pré-inscris</button>
-                    <p style="text-align:center; font-size:0.7rem; color:gray; margin-top:1rem;">🔒 Données privées. Aucun spam.</p>
+                    <button type="submit" class="btn" id="submit-btn">Je me pré-inscris</button>
                 </form>
             </div>
 
-            <div class="success" id="success-msg" style="display:none; text-align:center;">
-                <div style="font-size:2.5rem; margin-bottom:1rem;">🎬</div>
-                <h3 style="font-family:'Playfair Display', serif; font-size:1.4rem;">Vous êtes sur la liste !</h3>
-                <p>Merci <strong id="success-name"></strong>. À très bientôt.</p>
+            <div id="success-msg" style="display:none; text-align:center;">
+                <h3 style="font-family:'Playfair Display', serif; font-size:1.4rem;">Merci !</h3>
+                <p>Vous êtes déjà sur la liste d'attente.</p>
             </div>
         </div>
     </section>
 
-    <footer>
-        © 2026 Mr. Scenart · Tous droits réservés
-    </footer>
+    <footer>© 2026 Mr. Scenart</footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -444,7 +149,6 @@ function loadGoogleAnalytics() {
             databaseURL: "https://mr-scenart-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "mr-scenart",
             storageBucket: "mr-scenart.appspot.com",
-            messagingSenderId: "393331469487",
             appId: "1:393331469487:web:ca88a5ef5556100541785a"
         };
 
@@ -452,62 +156,50 @@ function loadGoogleAnalytics() {
         const db = getDatabase(app);
         const inscritsRef = ref(db, "waitlist/inscrits");
 
-        const banner = document.getElementById('cookie-banner');
         const waitlistForm = document.getElementById("waitlist-form");
         const formWrap = document.getElementById("form-wrap");
         const successMsg = document.getElementById("success-msg");
-        const successName = document.getElementById("success-name");
         const cntInscrits = document.getElementById("cnt-inscrits");
 
-        // Gestion Cookies
-        window.onload = function() {
-            const consent = localStorage.getItem('cookieConsent');
-            if (consent === 'accepted') {
-                loadGoogleAnalytics();
-            } else if (consent === null) {
-                banner.style.display = 'block';
-            }
-        };
+        // 1. Vérification au chargement (LocalStorage)
+        if (localStorage.getItem("inscrit_mr_scenar") === "true") {
+            formWrap.style.display = "none";
+            successMsg.style.display = "block";
+        }
 
-        window.acceptCookies = function() {
-            localStorage.setItem('cookieConsent', 'accepted');
-            banner.style.display = 'none';
-            loadGoogleAnalytics();
-        };
-
-        window.refuseCookies = function() {
-            localStorage.setItem('cookieConsent', 'refused');
-            banner.style.display = 'none';
-        };
-
-        // Real-time Counter
+        // 2. Compteur en temps réel
         onValue(inscritsRef, (snapshot) => {
             const data = snapshot.val();
-            const count = data ? Object.keys(data).length : 0;
-            if (cntInscrits) cntInscrits.innerText = count;
+            cntInscrits.innerText = data ? Object.keys(data).length : 0;
         });
 
-        // Form Submission
-        waitlistForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const prenom = document.getElementById("prenom").value;
-            const nom = document.getElementById("nom").value;
-            const email = document.getElementById("email").value;
-            const role = document.getElementById("role").value;
+        // 3. Envoi vers Firebase AVANT que Formspree ne change de page
+        waitlistForm.addEventListener("submit", async function(e) {
+            // On ne fait pas e.preventDefault() pour laisser Formspree envoyer le mail
+            
+            const data = {
+                prenom: document.getElementById("prenom").value,
+                nom: document.getElementById("nom").value,
+                email: document.getElementById("email").value,
+                role: document.getElementById("role").value,
+                date: new Date().toISOString()
+            };
 
-            try {
-                await push(inscritsRef, {
-                    prenom, nom, email, role,
-                    date: new Date().toISOString()
-                });
-                successName.innerText = prenom;
-                formWrap.style.display = "none";
-                successMsg.style.display = "block";
-            } catch (error) {
-                console.error("Erreur:", error);
-                alert("Une erreur est survenue.");
-            }
+            // Enregistrement Firebase
+            await push(inscritsRef, data);
+            
+            // Marqueur pour bloquer la prochaine fois
+            localStorage.setItem("inscrit_mr_scenar", "true");
         });
+
+        // Cookies
+        window.acceptCookies = function() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookie-banner').style.display = 'none';
+        };
+        if (!localStorage.getItem('cookieConsent')) {
+            document.getElementById('cookie-banner').style.display = 'block';
+        }
     </script>
 </body>
 </html>
