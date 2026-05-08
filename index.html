@@ -305,35 +305,40 @@
         }
     </style>
 
-    <script>
-        // Au chargement de la page, on vérifie si l'utilisateur est déjà inscrit
+<script>
 document.addEventListener("DOMContentLoaded", function() {
-    if (localStorage.getItem("dejaInscrit") === "true") {
-        const bouton = document.querySelector("#ton-bouton-inscription"); // Remplace par l'ID de ton bouton
-        bouton.disabled = true;
-        bouton.innerText = "Déjà inscrit !";
-        // Optionnel : masquer le formulaire
-        // document.querySelector("#ton-formulaire").style.display = "none";
+    const form = document.getElementById("waitlist-form");
+    const btn = form.querySelector("button");
+
+    // TÂCHE 1 : Bloquer si déjà inscrit
+    if (localStorage.getItem("inscrit_mr_scenar") === "true") {
+        btn.disabled = true;
+        btn.innerText = "Déjà inscrit !";
+        btn.style.opacity = "0.5";
+        btn.style.cursor = "not-allowed";
     }
+
+    // TÂCHE 2 : Action lors de l'envoi
+    form.addEventListener("submit", function() {
+        // On enregistre dans le navigateur juste avant que Formspree prenne le relais
+        localStorage.setItem("inscrit_mr_scenar", "true");
+    });
+
+    // Chargement de Google Analytics (on le garde tel quel)
+    loadGoogleAnalytics();
 });
 
-// Fonction à appeler lors de la validation du formulaire
-function confirmerInscription() {
-    // On enregistre le marqueur
-    localStorage.setItem("dejaInscrit", "true");
+function loadGoogleAnalytics() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-BP0D9SF51N";
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BP0D9SF51N');
 }
-        function loadGoogleAnalytics() {
-            var script = document.createElement('script');
-            script.async = true;
-            script.src = "https://www.googletagmanager.com/gtag/js?id=G-BP0D9SF51N";
-            document.head.appendChild(script);
-
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-BP0D9SF51N');
-        }
-    </script>
+</script>
 </head>
 
 <body>
