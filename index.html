@@ -306,6 +306,22 @@
     </style>
 
     <script>
+        // Au chargement de la page, on vérifie si l'utilisateur est déjà inscrit
+document.addEventListener("DOMContentLoaded", function() {
+    if (localStorage.getItem("dejaInscrit") === "true") {
+        const bouton = document.querySelector("#ton-bouton-inscription"); // Remplace par l'ID de ton bouton
+        bouton.disabled = true;
+        bouton.innerText = "Déjà inscrit !";
+        // Optionnel : masquer le formulaire
+        // document.querySelector("#ton-formulaire").style.display = "none";
+    }
+});
+
+// Fonction à appeler lors de la validation du formulaire
+function confirmerInscription() {
+    // On enregistre le marqueur
+    localStorage.setItem("dejaInscrit", "true");
+}
         function loadGoogleAnalytics() {
             var script = document.createElement('script');
             script.async = true;
@@ -374,7 +390,7 @@
             <div id="form-wrap">
                 <p class="card-title">Rejoindre la liste d'attente</p>
                 <p class="card-desc">Soyez parmi les premiers à accéder à Mr. Scenart dès l'ouverture.</p>
-                <form id="waitlist-form" novalidate>
+              <form id="waitlist-form" action="https://formspree.io/f/xykodbkb" method="POST">
                     <div class="form-group">
                         <label for="prenom">Prénom</label>
                         <input type="text" id="prenom" placeholder="Votre prénom" required />
