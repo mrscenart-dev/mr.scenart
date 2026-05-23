@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mise en avant | Mr. Scenart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --noir: #08090f; --bleu-clair: #4d7fff; --creme: #e8edf8; --gris: #7a8aaa; --blanc: #ffffff; }
+        body { background-color: var(--noir); color: var(--creme); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 2rem; overflow-x: hidden; position: relative; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.5; }
+        .ambient { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,214,0.12) 0%, transparent 70%); top: -100px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+        .container { max-width: 600px; text-align: center; z-index: 10; background: rgba(255,255,255,0.02); border: 1px solid rgba(77,127,255,0.15); border-radius: 16px; padding: 3rem; backdrop-filter: blur(10px); }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--blanc); margin-bottom: 1.5rem; }
+        h1 em { font-style: italic; color: var(--bleu-clair); }
+        p { color: var(--gris); line-height: 1.8; font-size: 1rem; margin-bottom: 2rem; }
+        .btn-back { display: inline-block; padding: 0.8rem 2rem; border: 1px solid rgba(77,127,255,0.4); color: var(--bleu-clair); text-decoration: none; border-radius: 30px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; }
+        .btn-back:hover { background: var(--bleu-clair); color: var(--blanc); box-shadow: 0 0 15px rgba(77,127,255,0.3); }
+    </style>
+</head>
+<body>
+    <div class="ambient"></div>
+    <div class="container">
+        <h1>Mise en <em>avant</em></h1>
+        <p>
+            Chez Mr. Scenart, nous croyons que chaque talent mérite d'être sous les projecteurs. Notre système met en valeur vos scripts, vos bandes-annonces de concepts ou vos books de comédien auprès des professionnels de l'industrie pour maximiser vos chances d'être repéré.
+        </p>
+        <a href="index.html" class="btn-back">Retour à l'accueil</a>
+    </div>
+</body>
+</html>
