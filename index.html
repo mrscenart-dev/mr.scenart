@@ -28,15 +28,31 @@
 
         .ambient { position: fixed; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,214,0.18) 0%, transparent 70%); top: -200px; left: 50%; transform: translateX(-50%); pointer-events: none; }
 
-        /* Alignement du menu de navigation */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; position: relative; z-index: 10; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--blanc); text-decoration: none; }
         .logo span { color: var(--bleu-clair); }
         
-        /* Modification : Disposition verticale à droite (Bientôt au-dessus d'À propos) */
+        /* Alignement vertical à droite */
         .nav-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
-        .nav-link { color: var(--gris); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; transition: color 0.2s ease; }
-        .nav-link:hover { color: var(--blanc); }
+        
+        /* Modification : Le bouton "À propos" utilise désormais le même design entouré que le badge */
+        .nav-link { 
+            font-size: 0.7rem; 
+            letter-spacing: 0.2em; 
+            text-transform: uppercase; 
+            color: var(--bleu-clair); 
+            border: 1px solid rgba(77,127,255,0.3); 
+            padding: 0.4rem 1rem; 
+            border-radius: 2rem; 
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover { 
+            background: rgba(77,127,255,0.1); 
+            border-color: var(--bleu-clair);
+            color: var(--blanc);
+        }
+        
         .badge { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bleu-clair); border: 1px solid rgba(77,127,255,0.3); padding: 0.4rem 1rem; border-radius: 2rem; }
 
         .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 5rem 2rem 4rem; z-index: 10; position: relative; }
