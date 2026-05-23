@@ -41,9 +41,13 @@
         h1 em { font-style: italic; color: var(--bleu-clair); }
         .hero-sub { color: var(--gris); max-width: 540px; margin-top: 1.6rem; line-height: 1.75; }
 
+        /* Modification : Style des points (piliers) transformés en liens cliquables */
         .pillars { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 4rem; z-index: 10; position: relative; }
-        .pillar { font-size: 0.82rem; text-transform: uppercase; color: var(--gris); display: flex; align-items: center; gap: 0.6rem; }
-        .pillar::before { content: ''; width: 5px; height: 5px; background: var(--bleu-clair); border-radius: 50%; }
+        .pillar { font-size: 0.82rem; text-transform: uppercase; color: var(--gris); display: flex; align-items: center; gap: 0.6rem; text-decoration: none; transition: color 0.2s ease; }
+        .pillar::before { content: ''; width: 5px; height: 5px; background: var(--bleu-clair); border-radius: 50%; flex-shrink: 0; }
+        
+        /* Effet visuel au survol de la souris */
+        .pillar:hover { color: var(--blanc); cursor: pointer; }
 
         .form-section { display: flex; justify-content: center; padding: 0 2rem 6rem; z-index: 10; position: relative; }
         .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(77,127,255,0.25); border-radius: 16px; padding: 3rem 3.5rem; max-width: 480px; width: 100%; backdrop-filter: blur(10px); }
@@ -94,10 +98,10 @@
     </section>
 
     <div class="pillars">
-        <div class="pillar">Mise en avant</div>
-        <div class="pillar">Accompagnement personnalisé</div>
-        <div class="pillar">Matchmaking caractérisé</div>
-        <div class="pillar">Partenariats de confiance</div>
+        <a href="mise-en-avant.html" target="_blank" class="pillar">Mise en avant</a>
+        <a href="accompagnement.html" target="_blank" class="pillar">Accompagnement personnalisé</a>
+        <a href="matchmaking.html" target="_blank" class="pillar">Matchmaking caractérisé</a>
+        <a href="partenariats.html" target="_blank" class="pillar">Partenariats de confiance</a>
     </div>
 
     <div class="counter-wrap">
