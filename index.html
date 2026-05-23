@@ -28,11 +28,15 @@
 
         .ambient { position: fixed; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,214,0.18) 0%, transparent 70%); top: -200px; left: 50%; transform: translateX(-50%); pointer-events: none; }
 
+        /* Alignement du menu de navigation */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; position: relative; z-index: 10; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--blanc); text-decoration: none; }
         .logo span { color: var(--bleu-clair); }
-        .nav-right { display: flex; align-items: center; gap: 2rem; }
-        .nav-link { color: var(--gris); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; }
+        
+        /* Modification : Disposition verticale à droite (Bientôt au-dessus d'À propos) */
+        .nav-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+        .nav-link { color: var(--gris); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; transition: color 0.2s ease; }
+        .nav-link:hover { color: var(--blanc); }
         .badge { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bleu-clair); border: 1px solid rgba(77,127,255,0.3); padding: 0.4rem 1rem; border-radius: 2rem; }
 
         .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 5rem 2rem 4rem; z-index: 10; position: relative; }
@@ -41,12 +45,10 @@
         h1 em { font-style: italic; color: var(--bleu-clair); }
         .hero-sub { color: var(--gris); max-width: 540px; margin-top: 1.6rem; line-height: 1.75; }
 
-        /* Modification : Style des points (piliers) transformés en liens cliquables */
+        /* Style des points (piliers) transformés en liens cliquables */
         .pillars { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 4rem; z-index: 10; position: relative; }
         .pillar { font-size: 0.82rem; text-transform: uppercase; color: var(--gris); display: flex; align-items: center; gap: 0.6rem; text-decoration: none; transition: color 0.2s ease; }
         .pillar::before { content: ''; width: 5px; height: 5px; background: var(--bleu-clair); border-radius: 50%; flex-shrink: 0; }
-        
-        /* Effet visuel au survol de la souris */
         .pillar:hover { color: var(--blanc); cursor: pointer; }
 
         .form-section { display: flex; justify-content: center; padding: 0 2rem 6rem; z-index: 10; position: relative; }
@@ -57,8 +59,6 @@
         .form-group { margin-bottom: 1.2rem; }
         label { display: block; font-size: 0.72rem; text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem; }
         input, select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.85rem 1rem; color: var(--creme); outline: none; }
-        
-        /* Correction visibilité des rôles */
         select option { color: black; } 
 
         .btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--bleu), var(--bleu-clair)); border: none; border-radius: 8px; color: var(--blanc); font-weight: 500; text-transform: uppercase; cursor: pointer; }
@@ -84,8 +84,8 @@
     <nav>
         <a href="index.html" class="logo">Mr.<span>Scenart</span></a>
         <div class="nav-right">
-            <a href="apropos.html" class="nav-link">À propos</a>
             <div class="badge">Bientôt</div>
+            <a href="apropos.html" class="nav-link">À propos</a>
         </div>
     </nav>
 
@@ -178,19 +178,16 @@
         const successMsg = document.getElementById("success-msg");
         const cntInscrits = document.getElementById("cnt-inscrits");
 
-        // 1. Bloquer si déjà inscrit
         if (localStorage.getItem("inscrit_mr_scenar") === "true") {
             formWrap.style.display = "none";
             successMsg.style.display = "block";
         }
 
-        // 2. Compteur réel
         onValue(inscritsRef, (snapshot) => {
             const data = snapshot.val();
             cntInscrits.innerText = data ? Object.keys(data).length : 0;
         });
 
-        // 3. Envoi Firebase avant redirection Formspree
         waitlistForm.addEventListener("submit", async function() {
             const data = {
                 prenom: document.getElementById("prenom").value,
@@ -203,7 +200,6 @@
             localStorage.setItem("inscrit_mr_scenar", "true");
         });
 
-        // 4. Gestion Cookies
         window.acceptCookies = function() {
             localStorage.setItem('cookieConsent', 'accepted');
             document.getElementById('cookie-banner').style.display = 'none';
